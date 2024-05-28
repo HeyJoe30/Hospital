@@ -7,7 +7,10 @@ class HandlerRequest(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
             self.path = "/index.html"
-
+        elif self.path == "/specializations":
+            self.handle_specializations()
+        elif self.path == "/doctors":
+            self.handle_doctors()
         try:
             file_path = os.path.join(os.getcwd(), self.path[1:])
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -68,7 +71,20 @@ class HandlerRequest(http.server.BaseHTTPRequestHandler):
                 self.send_response(401)
                 self.end_headers()
                 self.wfile.write(b'Invalid username or password')
+        elif self.path == '/book_form':
+            spec_id = user_data['specializationId']
+            doctor_id = user_data['doctorId']
+            examination_id = user_data['examinationId']
+            date = user_data['date']
+            time = user_data['time']
 
+            cur.execute("INSERT INTO Appointments (SpecializationId, DoctorId, ExaminationId, Date, Time) VALUES (%s, "
+                        "%s, %s, %s, %s)", (spec_id, doctor_id, examination_id, date, time, ))
+            conn.commit()
+
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b'Appointments created')
         else:
             self.send_response(404)
             self.end_headers()

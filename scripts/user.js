@@ -6,6 +6,36 @@ function ShowBook(){
 function ShowForm(){
     document.getElementById("form-tab").style.display = 'block'
     document.getElementById("book-tab").style.display = 'none'
+    fetch('/specializations')
+    .then(data => {
+        const specializationSelect = document.getElementById('spec');
+        specializationSelect.innerHTML = '';
+        data.forEach(spec => {
+            const option = document.createElement('option');
+            option.value = spec.id;
+            option.textContent = spec.name;
+            specializationSelect.appendChild(option);
+        });
+        loadDoctors();    
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function loadDoctors(){
+    fetch('/doctors')
+    .then(response => response.json())
+    .then(data => {
+        const doctorSelect = document.getElementById('name-doctor');
+        doctorSelect.innerHTML = '';
+        data.forEach(doctor => {
+            const option = document.createElement('option');
+            option.value = doctor.id;
+            option.textContent = doctor.name;
+            doctorSelect.appendChild(option);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+
 }
 
 window.onload = function(){
@@ -26,13 +56,20 @@ document.getElementById("book-form").addEventListener("submit", function(e){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            spec: spec,
-            nameDoctor: nameDoctor,
-            ex: ex,
+            specializaionId: spec,
+            DoctorId: nameDoctor,
+            examinationId: ex,
             date: date,
             time: time
         })
-    }).then(response => response.json())
     })
-
-})   
+    .then(response => {
+        if (response.ok) {
+            alert('Successfully booked');
+        }
+        else{
+            alert('Failed!');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
