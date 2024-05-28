@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет пациента</title>
+    <link type="text/css" rel="stylesheet" href="styles/user.css">
+</head>
+<body>
+    <div id= "patient-info">
+        <h2>Имя и фамилия:</h2>
+        <p id="patient-name">Иван Иванов</p>
+        <h2>Номер телефона:</h2>
+        <p id="patient-phone">8953456789</p>
+    </div>
+    <div id="tabs"> 
+        <button onclick="ShowBook()">Записи к врачу</button>
+        <button onclick="ShowForm()">Записаться к врачу</button>
+    </div>
+
+    <div id="book-tab">
+        <h2>Записи к врачу</h2>
+        <ul id="book-list">
+            <p>Врач:</p>
+            <p id="doctor-name">Иванов</p>
+            <p>Отделение:</p>
+            <p id="doctor-dep">Кардиология</p>
+            <p>Cпециализация:</p>
+            <p id="doctor-spec">Кардиолог</p>
+            <p>Дата:</p>
+            <p id="ex-date">01.01.2024</p>
+            <p>Время:</p>
+            <p id="ex-time">10:00</p>
+            <p>Обследование:</p>
+            <p id="ex-name">ЭКГ</p>
+        </li>
+    </ul>
+    </div>
+    <div id="form-tab">
+        <h2>Записаться к врачу</h2>
+        <form id="book-form">
+            <label for="spec">Специализация врача:</label>
+            <select type="text" id="spec">
+                <option value="card">Кардиология</option>
+                <option value="oft">Офтальмология</option>
+            </select>
+            <br><br>
+            <label for="name-doctor">Врач</label>
+            <select id="name-doctor"></select>
+            <br><br>
+            <label for="ex">Обследование</label>
+            <select id="ex"></select>
+            <br><br>
+            <label for="date">Дата:</label>
+            <input type="data" id="date" name="date">
+            <label for="time">Время:</label>
+            <input type="time" id="time" name="time">
+            <button type="submit">Записаться</button>
+        </form>
+    </div>
+
+
+    <script type="text/javascript" src="scripts/user.js"></script>
+
+</body>
+</html>
